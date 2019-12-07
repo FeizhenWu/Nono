@@ -1,3 +1,5 @@
+rm(list=ls())
+#function
 Nine_Square=function(diffGeneEnrich1,diffGeneEnrich2,myXlabel="",myYlabel="",org="hsa",
                      xMin=-4,xMax=4,yMin=-4,yMax=4,
                      cutoff=1.5,Fpkm_filter=F,miniFpkm1=0.5,miniFpkm2=0.5, 
@@ -191,3 +193,68 @@ Nine_Square=function(diffGeneEnrich1,diffGeneEnrich2,myXlabel="",myYlabel="",org
   
   return(results)
 }
+
+geneIDconvertion=function(genes_values,org){
+  # genes_values format
+  #SYMBOL value
+  #Fsbp    -9.3
+  #Ntn5    -8.2
+  #Btg3    -7.1
+  #
+  # or
+  #        REFSEQ value
+  #    NR_157155     1
+  # NM_001001981     2
+  #
+  if (org=="hsa"){
+    suppressPackageStartupMessages(library(org.Hs.eg.db))
+    OrgDb="org.Hs.eg.db"
+  }else if(org=="mmu"){
+    suppressPackageStartupMessages(library(org.Mm.eg.db))
+    OrgDb="org.Mm.eg.db"
+  }else if(org=="rno"){
+    suppressPackageStartupMessages(library(org.Rn.eg.db))
+    OrgDb="org.Rn.eg.db"
+  }else{
+    cat("Please specify species, according to http://www.genome.jp/kegg/catalog/org_list.html")
+    exit()
+  }
+  
+  # to determine genename type: REFSEQ or SYMBOL
+  idx=c(grep("NM_",genes_values[,1]),grep("NR_",genes_values[,1]),grep("NP_",genes_values[,1]),grep("XM_",genes_values[,1]),grep("XP_",genes_values[,1]),grep("XR_",genes_values[,1]))    
+  if(length(idx)>0){
+    names(genes_values)=c("REFSEQ","value")
+  }else{
+    names(genes_values)=c("SYMBOL","value")
+  }
+  orignType=names(genes_values)[1]
+  genes=suppressWarnings(bitr(as.character(genes_values[,1]), fromType=orignType, toType="ENTREZID", OrgDb=OrgDb, drop = TRUE))
+  genes_values_ENTREZID=merge(genes_values,genes,by=orignType)
+  geneList=genes_values_ENTREZID$value
+  names(geneList)=genes_values_ENTREZID$ENTREZID
+  results=list()
+  results$geneList=geneList
+  results$genes_values=genes_values_ENTREZID
+  return(results)
+}
+#============================================================
+setwd("~/github/Nono/")
+load("WT_D12_vs_D0.RData")
+WT=diffGeneEnrich
+load("NonoKO_D12_vs_D0.RData")
+KO=diffGeneEnrich
+rm(diffGeneEnrich)
+load("Rescue_D12_vs_D0.RData")
+RE=diffGeneEnrich
+WT_KO=Nine_Square(WT,KO,myXlabel="log2(D12/D0) in WT",myYlabel="log2(D12/D0) in KO",org="mmu")
+#============================================================
+myGroup=WT_KO$data[WT_KO$data$group=="I"|WT_KO$data$group=="F",]
+genes=row.names(myGroup)
+
+RE1=RE
+RE1$exp=RE1$exp[RE1$exp$geneSymbol %in%genes, ]
+KO1=KO
+KO1$exp=KO1$exp[KO1$exp$geneSymbol %in%genes, ]
+
+RE1_KO1=Nine_Square(RE1,KO1,myXlabel="log2(D12/D0) in KO+WT",myYlabel="log2(D12/D0) in KO",org="mmu")
+RE1_KO1$nineSquare
