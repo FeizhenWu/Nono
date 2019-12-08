@@ -1,6 +1,6 @@
 ## Nono deficiency compromises TET1 chromatin association and impedes neuronal differentiation of mouse embryonic stem cells
 
-Wenjing Li1,2,4, Violetta Karwacki-Neisius3,4,*, Chun Ma1, Li Tan1, Yang Shi3, Feizhen Wu1,*, Yujiang Geno Shi2,*
+Wenjing Li<sup>1,2,4</sup>, Violetta Karwacki-Neisius<sup>3,4,\*</sup>, Chun Ma<sup>1</sup>, Li Tan<sup>1</sup>, Yang Shi<sup>3</sup>, Feizhen Wu<sup>1,\*</sup>, Yujiang Geno Shi<sup>2,*</sup>
 
 1 Laboratory of Epigenetics, Institutes of Biomedical Sciences, Fudan University, Shanghai, 200032, China
 2 Endocrinology Division, Brigham and Women’s Hospital, Harvard Medical School, 221 Longwood Avenue, Boston, MA, 02115, USA
@@ -8,8 +8,8 @@ Wenjing Li1,2,4, Violetta Karwacki-Neisius3,4,*, Chun Ma1, Li Tan1, Yang Shi3, F
 
 4 The authors wish it to be known that, in their opinion, the first 2 authors should be regarded as joint First Authors.
 
-* Correspondence should be addressed to Yujiang Geno Shi. Tel: 1-(617) 525-8097; Fax: (617) 582-6193; Email: yujiang_shi@hms.harvard.edu
-* Correspondence may also be addressed to Feizhen Wu (wufz@fudan.edu.cn) and Violetta Karwacki-Neisius (violetta.karwacki-neisius@childrens.harvard.edu).
+\* Correspondence should be addressed to Yujiang Geno Shi. Tel: 1-(617) 525-8097; Fax: (617) 582-6193; Email: yujiang_shi@hms.harvard.edu
+\* Correspondence may also be addressed to Feizhen Wu (wufz@fudan.edu.cn) and Violetta Karwacki-Neisius (violetta.karwacki-neisius@childrens.harvard.edu).
 
 
 ### ABSTRACT
@@ -73,4 +73,4 @@ Note: Each R data is a list object, which contains items: exp, diffgenes, Enrich
 |WT_NonoKO_hMeDIP_at_Promoter2K.txt|Text| 5hmC density in promoters of WT and NonoKO cells|  
 |WT_NonoKO_Tet1_at_Promoter2K.txt|Text| Tet1 density in promoters of WT and NonoKO cells| 
 
-If you have any question or comments on these scripts and data, please let us know. Thank You!
+If you have any questions or comments on these scripts and data, please let us know. Thank You!
